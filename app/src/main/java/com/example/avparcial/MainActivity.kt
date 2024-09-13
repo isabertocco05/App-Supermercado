@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -25,11 +26,11 @@ class MainActivity : AppCompatActivity() {
     private val constReqImage = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -37,32 +38,48 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val imgPlaceholder = "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+        Glide.with(this)
+            .load(imgPlaceholder)
+            .into(binding.imgSelected)
+        Log.d("MainActivity", "Iniciando Glide")
         // inicializa a activity launcher para selecionar a imagem
         imgLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                // AQUI NÃO ESTÁ FUNCIONANDO
                 if (result.resultCode == RESULT_OK) {
                     val imgURI: Uri? = result.data?.data
+
                     Glide.with(this)
                         .load(imgURI)
+                        .override(300, 350)
                         .centerCrop()
                         .into(binding.imgSelected)
                 }
             }
 
         binding.btnSelectImage.setOnClickListener {
-            Log.d("MainActivity", "Solicitando permissão de armazenamento")
             // verifica se a permissao já foi concedida
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED
-            ) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                // só consegui fazer dessa forma
+                val intent = Intent(MediaStore.ACTION_PICK_IMAGES)
+                imgLauncher.launch(intent)
 
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), constReqImage
-                )
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                    != PackageManager.PERMISSION_GRANTED
+                ) {
 
-            } else {
-                abrirGaleria()
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), constReqImage
+                    )
+
+                } else {
+                    abrirGaleria()
+                }
             }
 
         }
@@ -74,28 +91,26 @@ class MainActivity : AppCompatActivity() {
 
     }
         private fun abrirGaleria() {
-            Log.d("MainActivity", "Solicitando permissão de armazenamento")
-            val intent = Intent(Intent.ACTION_PICK)
+//            val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             imgLauncher.launch(intent)
         }
 
     // precisamos sobreescrever esse método pq o usuario respondeu a uma solicitação
-        override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
-        ) {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        Log.d("MainActivity", "Permissão concedida: ${grantResults[0] == PackageManager.PERMISSION_GRANTED}")
-
-        if (requestCode == constReqImage) {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    abrirGaleria()
-                }
-                else Toast.makeText(this, "Permissão negada", Toast.LENGTH_SHORT).show()
-            }
-
-
-        }
+//        override fun onRequestPermissionsResult(
+//            requestCode: Int,
+//            permissions: Array<out String>,
+//            grantResults: IntArray
+//        ) {
+////            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//
+//        if (requestCode == constReqImage) {
+//                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+//                    abrirGaleria()
+//                }
+//                else Toast.makeText(this, "Permissão negada", Toast.LENGTH_SHORT).show()
+//            }
+//
+//
+//        }
 }
