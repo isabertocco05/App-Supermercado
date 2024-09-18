@@ -1,36 +1,41 @@
 package com.example.avparcial
 
-import android.Manifest
+import android.Manifest.permission.READ_MEDIA_IMAGES
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.avparcial.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var imgLauncher: ActivityResultLauncher<Intent>
-    private val constReqImage = 1
+
+    // foram criados requestPermissionLaucher e onPermissionResult
+    private val requestPermissionLaucher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission())  { isGranted: Boolean ->
+            onPermissionResult(isGranted)
+        }
+
+    private val getContent =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { image ->
+            showImage(image)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        enableEdgeToEdge()
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -38,79 +43,68 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val imgPlaceholder = "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
-        Glide.with(this)
-            .load(imgPlaceholder)
-            .into(binding.imgSelected)
-        Log.d("MainActivity", "Iniciando Glide")
-        // inicializa a activity launcher para selecionar a imagem
-        imgLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                // AQUI NÃO ESTÁ FUNCIONANDO
-                if (result.resultCode == RESULT_OK) {
-                    val imgURI: Uri? = result.data?.data
-
-                    Glide.with(this)
-                        .load(imgURI)
-                        .override(300, 350)
-                        .centerCrop()
-                        .into(binding.imgSelected)
-                }
-            }
+        showImage()
 
         binding.btnSelectImage.setOnClickListener {
-            // verifica se a permissao já foi concedida
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                // só consegui fazer dessa forma
-                val intent = Intent(MediaStore.ACTION_PICK_IMAGES)
-                imgLauncher.launch(intent)
-
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    )
-                    != PackageManager.PERMISSION_GRANTED
-                ) {
-
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), constReqImage
-                    )
-
-                } else {
-                    abrirGaleria()
-                }
-            }
-
+            selectImage()
         }
 
         binding.acessar.setOnClickListener {
             val intent = Intent(this, Listas::class.java)
             startActivity(intent)
         }
-
     }
-        private fun abrirGaleria() {
-//            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            imgLauncher.launch(intent)
+
+    private fun selectImage(){
+
+        // já está com acesso permitido?
+        when{
+            //sim
+            ContextCompat.checkSelfPermission(
+                this, READ_MEDIA_IMAGES
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                getContent.launch("image/*")
+            }
+            // não
+            else -> {
+                requestPermissionLaucher.launch(READ_MEDIA_IMAGES)
+            }
         }
 
-    // precisamos sobreescrever esse método pq o usuario respondeu a uma solicitação
-//        override fun onRequestPermissionsResult(
-//            requestCode: Int,
-//            permissions: Array<out String>,
-//            grantResults: IntArray
-//        ) {
-////            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//
-//        if (requestCode == constReqImage) {
-//                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-//                    abrirGaleria()
-//                }
-//                else Toast.makeText(this, "Permissão negada", Toast.LENGTH_SHORT).show()
-//            }
-//
-//
-//        }
+    }
+
+    private fun onPermissionResult(isGranted: Boolean){
+        // está garantido? sim
+        if (isGranted){
+            getContent.launch("image/*")
+        }
+        //não
+        else{
+            //mensagem explicando o porque é necessário o uso desse recurso
+            showPermissionExplanation(requestAgain = false)
+        }
+    }
+
+    private fun showPermissionExplanation(requestAgain: Boolean){
+        val snackbar = Snackbar.make(
+            findViewById(android.R.id.content),
+            "Precisamos de sua autorização para selecionar a imagem da galeria",
+            Snackbar.LENGTH_LONG
+        )
+        if (requestAgain){
+            snackbar.setAction("Permitir"){
+                requestPermissionLaucher.launch(READ_MEDIA_IMAGES)
+            }
+        }
+    }
+
+    private fun showImage(image: Any? = null) {
+        Glide.with(this)
+            .load(image)
+            .centerCrop()
+            .placeholder(R.drawable.placeholder)
+            .into(binding.imgSelected)
+    }
+
+
 }
