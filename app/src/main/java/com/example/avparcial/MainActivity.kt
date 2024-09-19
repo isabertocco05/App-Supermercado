@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.acessar.setOnClickListener {
-            val intent = Intent(this, Listas::class.java)
+            val intent = Intent(this, SuasListas::class.java)
             startActivity(intent)
         }
     }

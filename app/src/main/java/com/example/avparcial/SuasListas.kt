@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.avparcial.databinding.ActivityListasBinding
 import com.example.avparcial.databinding.ActivitySuasListasBinding
 
 class SuasListas : AppCompatActivity() {
@@ -30,10 +29,16 @@ class SuasListas : AppCompatActivity() {
         )
 
         val adapter= AdapterListas(suasListas, ::onListClicked)
-        val layoutManager = GridLayoutManager(this)
+        val layoutManager = GridLayoutManager(this, 2)
 
         binding.recyclerViewListas.adapter = adapter
         binding.recyclerViewListas.layoutManager = layoutManager
+
+        binding.FAB.setOnClickListener {
+            val newList = Lista("Mais uma Lista", "")
+            suasListas.add(newList)
+            adapter.notifyItemInserted(suasListas.size - 1)
+        }
     }
 
     private fun onListClicked(lista: Lista){
