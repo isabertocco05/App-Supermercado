@@ -1,5 +1,6 @@
 package com.example.avparcial
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,9 @@ class AdapterListas (
             itemView.setOnClickListener{
                 currentItem?.let {
                     onClick(it)
+
+                    val intent = Intent(binding.root.context, ItensLista::class.java)
+                    binding.root.context.startActivity(intent)
                 }
             }
         }
@@ -40,6 +44,7 @@ class AdapterListas (
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListaViewBinding.inflate(LayoutInflater.from(parent.context))
         return ViewHolder(binding)
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
