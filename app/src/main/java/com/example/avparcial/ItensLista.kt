@@ -1,5 +1,6 @@
 package com.example.avparcial
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -29,15 +30,17 @@ class ItensLista : AppCompatActivity() {
         )
 
         val adapter = AdapterItens(itensLista, ::onItensClicked)
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this )
 
         binding.recyclerViewItens.adapter = adapter
         binding.recyclerViewItens.layoutManager = layoutManager
 
         binding.FABItens.setOnClickListener {
-            val newItem = Itens("novo item", 0, "un", "comida")
-            itensLista.add(newItem)
-            adapter.notifyItemInserted(itensLista.size - 1)
+            val intent = Intent(binding.root.context, AddItens::class.java)
+            binding.root.context.startActivity(intent)
+//            val newItem = Itens("novo item", 0, "un", "comida")
+//            itensLista.add(newItem)
+//            adapter.notifyItemInserted(itensLista.size - 1)
         }
     }
 

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AvParcial</string>
+
+    <string-array name="tipos_unidade">
+        <item>Un</item>
+        <item>Kg</item>
+        <item>gramas</item>
+    </string-array>
+
 </resources>
