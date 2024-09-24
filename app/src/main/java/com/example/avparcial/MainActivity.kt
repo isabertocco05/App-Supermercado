@@ -45,11 +45,11 @@ class MainActivity : AppCompatActivity() {
 
         showImage()
 
-        binding.btnSelectImage.setOnClickListener {
+        binding.buttonCriarConta.setOnClickListener {
             selectImage()
         }
 
-        binding.acessar.setOnClickListener {
+        binding.buttonAcessar.setOnClickListener {
             val intent = Intent(this, SuasListas::class.java)
             startActivity(intent)
         }

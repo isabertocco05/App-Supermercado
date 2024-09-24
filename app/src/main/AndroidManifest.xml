@@ -17,6 +17,9 @@
         android:theme="@style/Theme.AvParcial"
         tools:targetApi="31">
         <activity
+            android:name=".activity_teste"
+            android:exported="false" />
+        <activity
             android:name=".AddItens"
             android:exported="false" />
         <activity
