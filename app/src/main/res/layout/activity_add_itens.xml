@@ -41,7 +41,7 @@
 
     <!-- QUANTIDADE E UNIDADE -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/qtd"
+        android:id="@+id/qtdItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -100,7 +100,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/qtd">
+        app:layout_constraintTop_toBottomOf="@+id/qtdItem">
 
         <AutoCompleteTextView
             android:id="@+id/tipoCat"
@@ -114,6 +114,7 @@
 
     <!-- BOTÃO ADICIONAR -->
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/addItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -122,6 +123,6 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         app:layout_constraintTop_toBottomOf="@+id/categoria"
-        android:text="Adicionar Item"/>
+        android:text="Adicionar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

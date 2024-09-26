@@ -3,6 +3,7 @@ package com.example.avparcial
 import android.hardware.camera2.CameraExtensionSession.StillCaptureLatency
 
 data class Itens (
+    val icone: Int?,
     val nome_item: String,
     val quantidade: Int,
     val unidade: String,

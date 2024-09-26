@@ -27,9 +27,6 @@ class AdapterItens(
 
         fun bind(item: Itens){
             currentItem = item
-
-//            binding.nameItem.text = item.nome_item
-//            binding.quantidade.inputType = item.quantidade
         }
 
     }

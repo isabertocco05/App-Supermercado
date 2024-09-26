@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AvParcial"
+        android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
             android:name=".activity_teste"
@@ -32,10 +32,7 @@
             android:name=".SuasListas"
             android:exported="false" />
         <activity
-            android:name=".AddLista"
-            android:exported="false" />
-        <activity
-            android:name=".Listas"
+            android:name=".Lista"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

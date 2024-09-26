@@ -26,7 +26,7 @@ class ItensLista : AppCompatActivity() {
         }
 
         var itensLista = mutableListOf(
-            Itens ("maçã", 4, "un", "fruta")
+            Itens (0,"maçã", 4, "un", "fruta")
         )
 
         val adapter = AdapterItens(itensLista, ::onItensClicked)

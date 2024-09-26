@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         binding.buttonAcessar.setOnClickListener {
-            val intent = Intent(this, AddItens::class.java)
+            val intent = Intent(this, ItensLista::class.java)
             startActivity(intent)
         }
     }
