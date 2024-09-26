@@ -26,7 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="32dp"
         android:hint="Nome do Item"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,14 +41,15 @@
 
     <!-- QUANTIDADE E UNIDADE -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/qtd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout4"
+            android:id="@+id/textInputLayoutQuantidade"
             style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -58,7 +59,7 @@
             app:layout_constraintEnd_toStartOf="@id/unidade"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.45"> <!-- 2/3 do espaço -->
+            app:layout_constraintWidth_percent="0.45">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/quantidade"
@@ -74,19 +75,53 @@
             android:layout_marginEnd="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textInputLayout4"
-            app:layout_constraintTop_toTopOf="@id/textInputLayout4">
+            app:layout_constraintStart_toEndOf="@id/textInputLayoutQuantidade"
+            app:layout_constraintTop_toTopOf="parent">
 
-<!--            <AutoCompleteTextView-->
-<!--                android:id="@+id/tipoUnid"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:padding="16dp"-->
-<!--                android:inputType="none"-->
-<!--                android:hint="Unidade"-->
-<!--                app:simpleItems="@array/tipos_unidade" />-->
+            <AutoCompleteTextView
+                android:id="@+id/tipoUnid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Unidade"
+                android:inputType="none"
+                android:padding="16dp"/>
+
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- CATEGORIA -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/categoria"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qtd">
+
+        <AutoCompleteTextView
+            android:id="@+id/tipoCat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Categoria"
+            android:inputType="none"
+            android:padding="16dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- BOTÃO ADICIONAR -->
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintTop_toBottomOf="@+id/categoria"
+        android:text="Adicionar Item"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

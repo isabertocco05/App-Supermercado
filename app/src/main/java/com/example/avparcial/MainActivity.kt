@@ -19,15 +19,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     // foram criados requestPermissionLaucher e onPermissionResult
-    private val requestPermissionLaucher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission())  { isGranted: Boolean ->
-            onPermissionResult(isGranted)
-        }
+//    private val requestPermissionLaucher =
+//        registerForActivityResult(ActivityResultContracts.RequestPermission())  { isGranted: Boolean ->
+//            onPermissionResult(isGranted)
+//        }
 
-    private val getContent =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { image ->
-            showImage(image)
-        }
+//    private val getContent =
+//        registerForActivityResult(ActivityResultContracts.GetContent()) { image ->
+//            showImage(image)
+//        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,68 +43,68 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        showImage()
+//        showImage()
 
-        binding.buttonCriarConta.setOnClickListener {
-            selectImage()
-        }
+//        binding.buttonCriarConta.setOnClickListener {
+//            selectImage()
+//        }
 
         binding.buttonAcessar.setOnClickListener {
-            val intent = Intent(this, SuasListas::class.java)
+            val intent = Intent(this, AddItens::class.java)
             startActivity(intent)
         }
     }
 
-    private fun selectImage(){
+//    private fun selectImage(){
+//
+//        // já está com acesso permitido?
+//        when{
+//            //sim
+//            ContextCompat.checkSelfPermission(
+//                this, READ_MEDIA_IMAGES
+//            ) == PackageManager.PERMISSION_GRANTED -> {
+//                getContent.launch("image/*")
+//            }
+//            // não
+//            else -> {
+//                requestPermissionLaucher.launch(READ_MEDIA_IMAGES)
+//            }
+//        }
+//
+//    }
 
-        // já está com acesso permitido?
-        when{
-            //sim
-            ContextCompat.checkSelfPermission(
-                this, READ_MEDIA_IMAGES
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                getContent.launch("image/*")
-            }
-            // não
-            else -> {
-                requestPermissionLaucher.launch(READ_MEDIA_IMAGES)
-            }
-        }
+//    private fun onPermissionResult(isGranted: Boolean){
+//        // está garantido? sim
+//        if (isGranted){
+//            getContent.launch("image/*")
+//        }
+//        //não
+//        else{
+//            //mensagem explicando o porque é necessário o uso desse recurso
+//            showPermissionExplanation(requestAgain = false)
+//        }
+//    }
 
-    }
+//    private fun showPermissionExplanation(requestAgain: Boolean){
+//        val snackbar = Snackbar.make(
+//            findViewById(android.R.id.content),
+//            "Precisamos de sua autorização para selecionar a imagem da galeria",
+//            Snackbar.LENGTH_LONG
+//        )
+//        if (requestAgain){
+//            snackbar.setAction("Permitir"){
+//                requestPermissionLaucher.launch(READ_MEDIA_IMAGES)
+//            }
+//        }
+//    }
 
-    private fun onPermissionResult(isGranted: Boolean){
-        // está garantido? sim
-        if (isGranted){
-            getContent.launch("image/*")
-        }
-        //não
-        else{
-            //mensagem explicando o porque é necessário o uso desse recurso
-            showPermissionExplanation(requestAgain = false)
-        }
-    }
-
-    private fun showPermissionExplanation(requestAgain: Boolean){
-        val snackbar = Snackbar.make(
-            findViewById(android.R.id.content),
-            "Precisamos de sua autorização para selecionar a imagem da galeria",
-            Snackbar.LENGTH_LONG
-        )
-        if (requestAgain){
-            snackbar.setAction("Permitir"){
-                requestPermissionLaucher.launch(READ_MEDIA_IMAGES)
-            }
-        }
-    }
-
-    private fun showImage(image: Any? = null) {
-        Glide.with(this)
-            .load(image)
-            .centerCrop()
-            .placeholder(R.drawable.placeholder)
-            .into(binding.imgSelected)
-    }
+//    private fun showImage(image: Any? = null) {
+//        Glide.with(this)
+//            .load(image)
+//            .centerCrop()
+//            .placeholder(R.drawable.placeholder)
+//            .into(binding.imgSelected)
+//    }
 
 
 }
