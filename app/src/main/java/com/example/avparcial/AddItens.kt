@@ -48,10 +48,13 @@ class AddItens : AppCompatActivity() {
             val cat: AutoCompleteTextView = binding.tipoCat
 
             // Adicionei a verificação
-            if (!isValidName(nome_item.text.toString().trim())) {
+            if (nome_item.text.isNullOrBlank() || quantidade.text.isNullOrBlank() || und.text.isNullOrBlank() || cat.text.isNullOrBlank()) {
+                Snackbar.make(findViewById(android.R.id.content), "Todos os campos devem ser preenchidos.", Snackbar.LENGTH_LONG).show()
+            } else if (!isValidName(nome_item.text.toString().trim())) {
                 Snackbar.make(findViewById(android.R.id.content), "O nome deve conter letras diferentes e não pode ser apenas números.", Snackbar.LENGTH_LONG).show()
             } else {
                 itemList.add(Itens(0, nome_item.text.toString(), quantidade.text.toString().toInt(), und.text.toString(), cat.text.toString()))
+                Snackbar.make(findViewById(android.R.id.content), "Item adicionado", Snackbar.LENGTH_SHORT).show()
             }
         }
     }
