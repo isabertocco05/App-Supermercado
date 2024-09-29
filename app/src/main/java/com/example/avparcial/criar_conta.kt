@@ -62,7 +62,7 @@ class criar_conta : AppCompatActivity() {
 
     // VERIFICA NOME
     private fun isValidName(name: String): Boolean {
-        val hasLetters = name.any { it.isLetter() } // Verifica se há pelo menos uma letra
+        val hasLetters = name.any { it.isLetter() }
         val hasUniqueCharacters = name.toSet().size > 1 // Verifica se há mais de um caractere diferente
         val hasOnlyLetters = name.all { it.isLetter() } // Verifica se contém apenas letras
 

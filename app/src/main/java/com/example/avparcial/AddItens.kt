@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.avparcial.databinding.ActivityAddItensBinding
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.snackbar.Snackbar
 
 class AddItens : AppCompatActivity() {
     private lateinit var binding: ActivityAddItensBinding
@@ -46,12 +47,22 @@ class AddItens : AppCompatActivity() {
             val und: AutoCompleteTextView = binding.tipoUnid
             val cat: AutoCompleteTextView = binding.tipoCat
 
-            itemList.add(Itens(0, "$nome_item", 0, "$und", "$cat"))
-
-
-//            }
+            // Adicionei a verificação
+            if (!isValidName(nome_item.text.toString().trim())) {
+                Snackbar.make(findViewById(android.R.id.content), "O nome deve conter letras diferentes e não pode ser apenas números.", Snackbar.LENGTH_LONG).show()
+            } else {
+                itemList.add(Itens(0, nome_item.text.toString(), quantidade.text.toString().toInt(), und.text.toString(), cat.text.toString()))
+            }
         }
+    }
 
+    // VERIFICA NOME
+    private fun isValidName(name: String): Boolean {
+        val hasLetters = name.any { it.isLetter() }
+        val hasUniqueCharacters = name.toSet().size > 1 // Verifica se há mais de um caractere diferente
+        val hasOnlyLetters = name.all { it.isLetter() } // Verifica se contém apenas letras
+
+        return hasLetters && hasUniqueCharacters && hasOnlyLetters
     }
 
 }
