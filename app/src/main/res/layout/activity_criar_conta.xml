@@ -7,4 +7,173 @@
     android:layout_height="match_parent"
     tools:context=".criar_conta">
 
+    <TextView
+        android:id="@+id/textViewCrieSuaConta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="47dp"
+        android:text="Crie sua Conta"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewCrieSuaContaNome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="47dp"
+        android:text="Nome"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCrieSuaConta" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/textViewCrieSuaContaNomeUsuario"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="47dp"
+        android:background="@drawable/caixa_texto"
+        android:ems="10"
+        android:hint="Digite seu nome completo"
+        android:paddingStart="16dp"
+        android:textColorHint="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCrieSuaContaNome" />
+
+    <TextView
+        android:id="@+id/textViewCrieSuaContaEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="47dp"
+        android:text="E-mail"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCrieSuaContaNomeUsuario" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/textViewCrieSuaContaEmailUsuario"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="47dp"
+        android:background="@drawable/caixa_texto"
+        android:ems="10"
+        android:hint="Digite seu e-mail"
+        android:paddingStart="16dp"
+        android:textColorHint="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCrieSuaContaEmail" />
+
+    <TextView
+        android:id="@+id/textViewCrieSuaContaSenha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="47dp"
+        android:text="Senha"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCrieSuaContaEmailUsuario" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/textViewCrieSuaContaSenhaUsuario"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="47dp"
+        android:background="@drawable/caixa_texto"
+        android:ems="10"
+        android:hint="Crie sua senha"
+        android:inputType="textPassword"
+        android:paddingStart="16dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHint="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCrieSuaContaSenha" />
+
+    <TextView
+        android:id="@+id/textViewCrieSuaContaConfirmeSenha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="47dp"
+        android:text="Confirme"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCrieSuaContaSenhaUsuario" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/textViewCrieSuaContaConfirmeSenhaUsuario"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="47dp"
+        android:background="@drawable/caixa_texto"
+        android:ems="10"
+        android:hint="Confirme sua senha"
+        android:inputType="textPassword"
+        android:paddingStart="16dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHint="@color/black"
+        android:textSize="12sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCrieSuaContaConfirmeSenha" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonCrieSuaConta"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="47dp"
+        android:background="@drawable/botao_acesse"
+        android:text="Criar"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCrieSuaContaConfirmeSenhaUsuario" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
