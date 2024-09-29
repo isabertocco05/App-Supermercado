@@ -46,7 +46,7 @@ class criar_conta : AppCompatActivity() {
                     Snackbar.LENGTH_LONG
                 ).show()
             } else if (!isValidName(nome)) {
-                Snackbar.make(findViewById(android.R.id.content), "Certeza que o nome está correto? Ele deve conter letras diferentes e não pode ser apenas números.", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(findViewById(android.R.id.content), "O nome deve conter letras diferentes e não pode ser apenas números.", Snackbar.LENGTH_LONG).show()
             } else if (!isValidEmail(email)) {
                 Snackbar.make(findViewById(android.R.id.content), "Email inválido.", Snackbar.LENGTH_LONG).show()
             } else if (!isValidPassword(senha)) {
