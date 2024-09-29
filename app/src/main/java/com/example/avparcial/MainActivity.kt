@@ -50,9 +50,27 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         binding.buttonAcessar.setOnClickListener {
-            val intent = Intent(this, ItensLista::class.java)
+            val email = binding.emailusuario.text.toString().trim()
+            val senha = binding.SenhaUsuario.text.toString().trim()
+
+            // Verificações de email e senha
+            if (email.isEmpty() || senha.isEmpty()) {
+                Snackbar.make(findViewById(android.R.id.content), "Todos os campos devem ser preenchidos.", Snackbar.LENGTH_LONG).show()
+            } else if (!isValidEmail(email)) {
+                Snackbar.make(findViewById(android.R.id.content), "Email inválido.", Snackbar.LENGTH_LONG).show()
+            } else if (!isValidPassword(senha)) {
+                Snackbar.make(findViewById(android.R.id.content), "A senha deve conter pelo menos uma letra, um número e um caractere especial.", Snackbar.LENGTH_LONG).show()
+            } else {
+                // ok, navegue para a próxima tela
+                val intent = Intent(this, SuasListas::class.java)
+                startActivity(intent)
+            }
+        }
+        binding.buttonCriarConta.setOnClickListener {
+            val intent = Intent(this, criar_conta::class.java)
             startActivity(intent)
         }
+
     }
 
 //    private fun selectImage(){
@@ -105,6 +123,30 @@ class MainActivity : AppCompatActivity() {
 //            .placeholder(R.drawable.placeholder)
 //            .into(binding.imgSelected)
 //    }
+// VERIFICA EMAIL
+private fun isValidEmail(email: String): Boolean {
+    return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
+            isEmailLengthValid(email) &&
+            !isTemporaryEmail(email) // Adicione ou remova verificações conforme necessário
+}
+
+    private fun isEmailLengthValid(email: String): Boolean {
+        return email.length in 3..254
+    }
+
+    private fun isTemporaryEmail(email: String): Boolean {
+        val temporaryDomains = listOf("tempmail.com", "mailinator.com")
+        val domain = email.substringAfter("@")
+        return domain in temporaryDomains
+    }
+
+    // VERIFICA SENHA
+    private fun isValidPassword(password: String): Boolean {
+        val hasLetter = password.any { it.isLetter() }
+        val hasDigit = password.any { it.isDigit() }
+        val hasSpecialChar = password.any { !it.isLetterOrDigit() }
+        return hasLetter && hasDigit && hasSpecialChar && (password.length >= 8)
+    }
 
 
 }
