@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,12 +16,16 @@ import com.example.avparcial.databinding.ActivitySuasListasBinding
 class SuasListas : AppCompatActivity() {
     private lateinit var binding: ActivitySuasListasBinding
     private var suasListas: MutableList<Lista> = mutableListOf()
+    private var listaFiltrada: MutableList<Lista> = mutableListOf()
+    private lateinit var adapter: AdapterListas
+
     private val createListLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val nova_lista = result.data?.getParcelableArrayListExtra<Lista>("nova_lista")
             nova_lista?.let {
                 suasListas.addAll(it)
-                binding.recyclerViewListas.adapter?.notifyDataSetChanged() // atualiza o recyclerview
+                listaFiltrada.addAll(it)
+                adapter.notifyDataSetChanged() // Atualiza o RecyclerView
             }
         }
     }
@@ -37,12 +42,26 @@ class SuasListas : AppCompatActivity() {
             insets
         }
 
+
+        // PESQUISA
+        binding.pesquisa.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText ?: "")
+                return true
+            }
+        })
+
         val nova_lista = intent.getParcelableArrayListExtra<Lista>("nova_lista")
         nova_lista?.let {
             suasListas.addAll(it)
+            listaFiltrada.addAll(it)
         }
 
-        val adapter = AdapterListas(suasListas, ::onListClicked)
+        adapter = AdapterListas(listaFiltrada, ::onListClicked)
         binding.recyclerViewListas.adapter = adapter
         binding.recyclerViewListas.layoutManager = GridLayoutManager(this, 2)
 
@@ -52,7 +71,22 @@ class SuasListas : AppCompatActivity() {
         }
     }
 
+    private fun filterList(searchText: String) {
+        listaFiltrada.clear()
+        if (searchText.isEmpty()) {
+            listaFiltrada.addAll(suasListas)
+        } else {
+            suasListas.forEach { lista ->
+                if (lista.nome.contains(searchText, ignoreCase = true)) {
+                    listaFiltrada.add(lista)
+                }
+            }
+        }
+        adapter.notifyDataSetChanged() // Atualiza o RecyclerView
+    }
+
     private fun onListClicked(lista: Lista) {
         Toast.makeText(this, lista.toString(), Toast.LENGTH_LONG).show()
+
     }
 }

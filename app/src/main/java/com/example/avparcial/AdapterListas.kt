@@ -53,4 +53,5 @@ class AdapterListas (
     }
 
     override fun getItemCount(): Int =descListas.size
+
 }
