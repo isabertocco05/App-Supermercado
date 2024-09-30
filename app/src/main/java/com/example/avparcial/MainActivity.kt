@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     private fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
                 isEmailLengthValid(email) &&
-                !isTemporaryEmail(email) // Adicione ou remova verificações conforme necessário
+                !isTemporaryEmail(email)
     }
 
     private fun isEmailLengthValid(email: String): Boolean {

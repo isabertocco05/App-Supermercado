@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -13,6 +14,16 @@ import com.example.avparcial.databinding.ActivitySuasListasBinding
 
 class SuasListas : AppCompatActivity() {
     private lateinit var binding: ActivitySuasListasBinding
+    private var suasListas: MutableList<Lista> = mutableListOf()
+    private val createListLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val nova_lista = result.data?.getParcelableArrayListExtra<Lista>("nova_lista")
+            nova_lista?.let {
+                suasListas.addAll(it)
+                binding.recyclerViewListas.adapter?.notifyDataSetChanged() // Atualiza o RecyclerView
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,28 +37,22 @@ class SuasListas : AppCompatActivity() {
             insets
         }
 
-        val nova_lista = intent.getParcelableArrayListExtra<Lista>("nova_lista") ?: arrayListOf()
-
-        val adapter= AdapterListas(nova_lista as List<Lista>, ::onListClicked)
-        val layoutManager = GridLayoutManager(this, 2)
-
-        binding.recyclerViewListas.adapter = adapter
-        binding.recyclerViewListas.layoutManager = layoutManager
-
-        adapter.notifyItemInserted(nova_lista.size - 1)
-
-        binding.FAB.setOnClickListener {
-            val intent = Intent(binding.root.context, CriarLista::class.java)
-            binding.root.context.startActivity(intent)
+        val nova_lista = intent.getParcelableArrayListExtra<Lista>("nova_lista")
+        nova_lista?.let {
+            suasListas.addAll(it)
         }
 
-//        binding.pesquisa.addTextChangedListener { text ->
-//            val searchText = text.toString()
-//            adapter.search(searchText)
-//        }
+        val adapter = AdapterListas(suasListas, ::onListClicked)
+        binding.recyclerViewListas.adapter = adapter
+        binding.recyclerViewListas.layoutManager = GridLayoutManager(this, 2)
+
+        binding.FAB.setOnClickListener {
+            val intent = Intent(this, CriarLista::class.java)
+            createListLauncher.launch(intent)
+        }
     }
 
-    private fun onListClicked(lista: Lista){
+    private fun onListClicked(lista: Lista) {
         Toast.makeText(this, lista.toString(), Toast.LENGTH_LONG).show()
     }
 }

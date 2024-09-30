@@ -29,7 +29,8 @@ class CriarLista : AppCompatActivity() {
 
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { image ->
-            showImage(image)
+            imgUri = image
+            showImage(imgUri)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,16 +52,17 @@ class CriarLista : AppCompatActivity() {
         }
         binding.buttonCriarLista.setOnClickListener {
 
-            val nome_lista = binding.nomeDaLista
-            val imagem_lista = (binding.imagemLista).toString()
+            val nome_lista = binding.nomeDaLista.text.toString()
+            val imagem_lista = imgUri.toString()
             val id= 1
 
             nova_lista = listOf(Lista( id.toString(), "$nome_lista", imagem_lista, null ))
 
-            val intent = Intent(this, SuasListas::class.java).apply {
+            val intent = Intent().apply {
                 putParcelableArrayListExtra("nova_lista", ArrayList(nova_lista))
             }
-            binding.root.context.startActivity(intent)
+            setResult(RESULT_OK, intent)
+            finish()
 
         }
 

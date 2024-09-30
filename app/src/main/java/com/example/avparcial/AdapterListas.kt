@@ -28,9 +28,8 @@ class AdapterListas (
             }
         }
 
-        fun bind (item: Lista){
+        fun bind(item: Lista) {
             currentItem = item
-
             binding.nameList.text = item.nome
             Glide.with(binding.root.context)
                 .load(item.imagemUrl)
@@ -38,6 +37,7 @@ class AdapterListas (
                 .placeholder(R.drawable.loader_test)
                 .into(binding.imageList)
         }
+
 
     }
 
