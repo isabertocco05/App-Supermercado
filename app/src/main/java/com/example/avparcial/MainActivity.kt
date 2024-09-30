@@ -13,17 +13,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    // foram criados requestPermissionLaucher e onPermissionResult
-//    private val requestPermissionLaucher =
-//        registerForActivityResult(ActivityResultContracts.RequestPermission())  { isGranted: Boolean ->
-//            onPermissionResult(isGranted)
-//        }
-
-//    private val getContent =
-//        registerForActivityResult(ActivityResultContracts.GetContent()) { image ->
-//            showImage(image)
-//        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -37,12 +26,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-//        showImage()
-
-//        binding.buttonCriarConta.setOnClickListener {
-//            selectImage()
-//        }
 
         binding.buttonAcessar.setOnClickListener {
             val email = binding.emailusuario.text.toString().trim()
@@ -68,62 +51,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    private fun selectImage(){
-//
-//        // já está com acesso permitido?
-//        when{
-//            //sim
-//            ContextCompat.checkSelfPermission(
-//                this, READ_MEDIA_IMAGES
-//            ) == PackageManager.PERMISSION_GRANTED -> {
-//                getContent.launch("image/*")
-//            }
-//            // não
-//            else -> {
-//                requestPermissionLaucher.launch(READ_MEDIA_IMAGES)
-//            }
-//        }
-//
-//    }
-
-//    private fun onPermissionResult(isGranted: Boolean){
-//        // está garantido? sim
-//        if (isGranted){
-//            getContent.launch("image/*")
-//        }
-//        //não
-//        else{
-//            //mensagem explicando o porque é necessário o uso desse recurso
-//            showPermissionExplanation(requestAgain = false)
-//        }
-//    }
-
-//    private fun showPermissionExplanation(requestAgain: Boolean){
-//        val snackbar = Snackbar.make(
-//            findViewById(android.R.id.content),
-//            "Precisamos de sua autorização para selecionar a imagem da galeria",
-//            Snackbar.LENGTH_LONG
-//        )
-//        if (requestAgain){
-//            snackbar.setAction("Permitir"){
-//                requestPermissionLaucher.launch(READ_MEDIA_IMAGES)
-//            }
-//        }
-//    }
-
-//    private fun showImage(image: Any? = null) {
-//        Glide.with(this)
-//            .load(image)
-//            .centerCrop()
-//            .placeholder(R.drawable.placeholder)
-//            .into(binding.imgSelected)
-//    }
-// VERIFICA EMAIL
-private fun isValidEmail(email: String): Boolean {
-    return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
-            isEmailLengthValid(email) &&
-            !isTemporaryEmail(email) // Adicione ou remova verificações conforme necessário
-}
+    // VERIFICA EMAIL
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
+                isEmailLengthValid(email) &&
+                !isTemporaryEmail(email) // Adicione ou remova verificações conforme necessário
+    }
 
     private fun isEmailLengthValid(email: String): Boolean {
         return email.length in 3..254

@@ -17,4 +17,6 @@ class activity_teste : AppCompatActivity() {
             insets
         }
     }
+
+
 }

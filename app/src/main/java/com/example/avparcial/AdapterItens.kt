@@ -8,7 +8,7 @@ import com.example.avparcial.databinding.ActivityItensListaBinding
 import com.example.avparcial.databinding.ItensViewBinding
 
 class AdapterItens(
-    private val descItens: List<Itens>,
+    private var descItens: List<Itens>,
     private val onClick: (Itens) -> Unit
 ): RecyclerView.Adapter<AdapterItens.ViewHolder>()  {
 
@@ -43,4 +43,8 @@ class AdapterItens(
 
     override fun getItemCount(): Int = descItens.size
 
+    fun updateList(newList: List<Itens>) {
+        descItens = newList
+        notifyDataSetChanged()
+    }
 }

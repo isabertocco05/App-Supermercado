@@ -1,5 +1,7 @@
 package com.example.avparcial
 
+import Lista
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -24,21 +26,25 @@ class SuasListas : AppCompatActivity() {
             insets
         }
 
-        var suasListas = mutableListOf(
-            Lista ("Hortifruti", "")
-        )
+        val nova_lista = intent.getParcelableArrayListExtra<Lista>("nova_lista") ?: arrayListOf()
 
-        val adapter= AdapterListas(suasListas, ::onListClicked)
+        val adapter= AdapterListas(nova_lista as List<Lista>, ::onListClicked)
         val layoutManager = GridLayoutManager(this, 2)
 
         binding.recyclerViewListas.adapter = adapter
         binding.recyclerViewListas.layoutManager = layoutManager
 
+        adapter.notifyItemInserted(nova_lista.size - 1)
+
         binding.FAB.setOnClickListener {
-            val newList = Lista("Mais uma Lista", "")
-            suasListas.add(newList)
-            adapter.notifyItemInserted(suasListas.size - 1)
+            val intent = Intent(binding.root.context, CriarLista::class.java)
+            binding.root.context.startActivity(intent)
         }
+
+//        binding.pesquisa.addTextChangedListener { text ->
+//            val searchText = text.toString()
+//            adapter.search(searchText)
+//        }
     }
 
     private fun onListClicked(lista: Lista){

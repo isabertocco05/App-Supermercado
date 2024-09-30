@@ -1,5 +1,6 @@
 package com.example.avparcial
 
+import Lista
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -21,7 +22,6 @@ class AdapterListas (
             itemView.setOnClickListener{
                 currentItem?.let {
                     onClick(it)
-
                     val intent = Intent(binding.root.context, ItensLista::class.java)
                     binding.root.context.startActivity(intent)
                 }

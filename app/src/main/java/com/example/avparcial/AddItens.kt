@@ -1,5 +1,6 @@
 package com.example.avparcial
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -46,6 +47,8 @@ class AddItens : AppCompatActivity() {
             val quantidade: TextInputEditText = binding.quantidade
             val und: AutoCompleteTextView = binding.tipoUnid
             val cat: AutoCompleteTextView = binding.tipoCat
+            val novoItem = Itens(0, "$nome_item", 0, "$und", "$cat")
+            val intent = Intent()
 
             // Adicionei a verificação
             if (nome_item.text.isNullOrBlank() || quantidade.text.isNullOrBlank() || und.text.isNullOrBlank() || cat.text.isNullOrBlank()) {
@@ -55,14 +58,20 @@ class AddItens : AppCompatActivity() {
             } else {
                 itemList.add(Itens(0, nome_item.text.toString(), quantidade.text.toString().toInt(), und.text.toString(), cat.text.toString()))
                 Snackbar.make(findViewById(android.R.id.content), "Item adicionado", Snackbar.LENGTH_SHORT).show()
+
+                itemList.add(novoItem)
+                intent.putParcelableArrayListExtra( "novo_item", itemList)
+                setResult(RESULT_OK, intent)
+                finish()
             }
+
         }
     }
 
     // VERIFICA NOME
     private fun isValidName(name: String): Boolean {
         val hasLetters = name.any { it.isLetter() }
-        val hasUniqueCharacters = name.toSet().size > 1 // Verifica se há mais de um caractere diferente
+        val hasUniqueCharacters = name.toSet().size > 1 // Verifica caractere diferente
         val hasOnlyLetters = name.all { it.isLetter() } // Verifica se contém apenas letras
 
         return hasLetters && hasUniqueCharacters && hasOnlyLetters
