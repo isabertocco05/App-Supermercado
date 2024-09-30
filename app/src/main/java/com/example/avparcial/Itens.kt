@@ -6,14 +6,14 @@ import android.os.Parcelable
 data class Itens(
     val icone: Int?,
     val nome_item: String,
-    val quantidade: Int,
+    val quantidade: String,
     val unidade: String,
     val categoria: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString() ?: "",
-        parcel.readInt(),
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: ""
     )
@@ -21,7 +21,7 @@ data class Itens(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(icone)
         parcel.writeString(nome_item)
-        parcel.writeInt(quantidade)
+        parcel.writeString(quantidade)
         parcel.writeString(unidade)
         parcel.writeString(categoria)
     }

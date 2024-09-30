@@ -13,16 +13,13 @@ import com.example.avparcial.databinding.ActivityItensListaBinding
 
 class ItensLista : AppCompatActivity() {
     private lateinit var binding: ActivityItensListaBinding
-    private lateinit var itensLista: MutableList<Itens>
-
-    private val addItemLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
+    private var itensLista: MutableList<Itens> = mutableListOf()
+    private val addItemLauncher = registerForActivityResult( ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             val data = result.data
-            data?.getParcelableArrayListExtra<Itens>("novo_item")?.let { newItems ->
-                itensLista.clear()
-                itensLista.addAll(newItems)
+            data?.getParcelableArrayListExtra<Itens>("novo_item")?.let {
+                itensLista.addAll(it)
                 binding.recyclerViewItens.adapter?.notifyDataSetChanged()
             }
         }
@@ -41,7 +38,10 @@ class ItensLista : AppCompatActivity() {
             insets
         }
 
-        itensLista = mutableListOf()
+        val novo_item = intent.getParcelableArrayListExtra<Itens>("novo_item")
+        novo_item?.let{
+            itensLista.addAll(it)
+        }
 
         val adapter = AdapterItens(itensLista, ::onItensClicked)
         val layoutManager = LinearLayoutManager(this )
@@ -50,12 +50,7 @@ class ItensLista : AppCompatActivity() {
         binding.recyclerViewItens.layoutManager = layoutManager
 
         binding.FABItens.setOnClickListener {
-            val intent = Intent(binding.root.context, AddItens::class.java)
-            binding.root.context.startActivity(intent)
-//            val newItem = Itens("novo item", 0, "un", "comida")
-//            itensLista.add(newItem)
-//            adapter.notifyItemInserted(itensLista.size - 1)
-            intent.putParcelableArrayListExtra("novo_item", ArrayList(itensLista))
+            val intent = Intent(this, AddItens::class.java)
             addItemLauncher.launch(intent)
         }
     }

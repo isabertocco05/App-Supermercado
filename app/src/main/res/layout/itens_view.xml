@@ -37,11 +37,20 @@
             android:id="@+id/quantidade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 un"
+            android:text="0"
             android:textAppearance="?attr/textAppearanceListItemSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameItem"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/un"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="un"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/quantidade" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatCheckBox

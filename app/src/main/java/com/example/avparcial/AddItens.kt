@@ -3,18 +3,17 @@ package com.example.avparcial
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.avparcial.databinding.ActivityAddItensBinding
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.snackbar.Snackbar
+import java.util.ArrayList
 
 class AddItens : AppCompatActivity() {
     private lateinit var binding: ActivityAddItensBinding
-    private var itemList = ArrayList<Itens>()
+    private lateinit var novo_item: List<Itens>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,24 +42,23 @@ class AddItens : AppCompatActivity() {
 
         binding.addItem.setOnClickListener{
 
-            val nome_item: TextInputEditText = binding.nomeDoItem
-            val quantidade: TextInputEditText = binding.quantidade
-            val und: AutoCompleteTextView = binding.tipoUnid
-            val cat: AutoCompleteTextView = binding.tipoCat
-            val novoItem = Itens(0, "$nome_item", 0, "$und", "$cat")
-            val intent = Intent()
+            val nome_item = binding.nomeDoItem.text.toString()
+            val quantidade = binding.quantidade.text.toString()
+            val und = binding.tipoUnid.text.toString()
+            val cat = binding.tipoCat.toString()
 
-            // Adicionei a verificação
-            if (nome_item.text.isNullOrBlank() || quantidade.text.isNullOrBlank() || und.text.isNullOrBlank() || cat.text.isNullOrBlank()) {
+            novo_item = listOf(Itens(0, "$nome_item", "$quantidade", "$und", "$cat"))
+
+            if (nome_item.isNullOrBlank() || quantidade.isNullOrBlank() || und.isNullOrBlank() || cat.isNullOrBlank()) {
                 Snackbar.make(findViewById(android.R.id.content), "Todos os campos devem ser preenchidos.", Snackbar.LENGTH_LONG).show()
-            } else if (!isValidName(nome_item.text.toString().trim())) {
+            } else if (!isValidName(nome_item.trim())) {
                 Snackbar.make(findViewById(android.R.id.content), "O nome deve conter letras diferentes e não pode ser apenas números.", Snackbar.LENGTH_LONG).show()
             } else {
-                itemList.add(Itens(0, nome_item.text.toString(), quantidade.text.toString().toInt(), und.text.toString(), cat.text.toString()))
                 Snackbar.make(findViewById(android.R.id.content), "Item adicionado", Snackbar.LENGTH_SHORT).show()
 
-                itemList.add(novoItem)
-                intent.putParcelableArrayListExtra( "novo_item", itemList)
+                val intent = Intent().apply {
+                    putParcelableArrayListExtra("novo_item", ArrayList(novo_item))
+                }
                 setResult(RESULT_OK, intent)
                 finish()
             }

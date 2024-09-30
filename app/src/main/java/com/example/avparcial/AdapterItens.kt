@@ -27,6 +27,10 @@ class AdapterItens(
 
         fun bind(item: Itens){
             currentItem = item
+            binding.nameItem.text = item.nome_item.uppercase()
+            binding.quantidade.text= item.quantidade
+            binding.un.text = item.unidade
+//            falta a categoria
         }
 
     }
@@ -38,13 +42,9 @@ class AdapterItens(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = descItens[position]
-        holder.bind((item))
+        holder.bind(item)
     }
 
     override fun getItemCount(): Int = descItens.size
 
-    fun updateList(newList: List<Itens>) {
-        descItens = newList
-        notifyDataSetChanged()
-    }
 }

@@ -30,7 +30,7 @@ class AdapterListas (
 
         fun bind(item: Lista) {
             currentItem = item
-            binding.nameList.text = item.nome
+            binding.nameList.text = item.nome.uppercase()
             Glide.with(binding.root.context)
                 .load(item.imagemUrl)
                 .centerCrop()

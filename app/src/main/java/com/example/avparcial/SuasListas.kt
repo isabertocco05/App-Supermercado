@@ -20,7 +20,7 @@ class SuasListas : AppCompatActivity() {
             val nova_lista = result.data?.getParcelableArrayListExtra<Lista>("nova_lista")
             nova_lista?.let {
                 suasListas.addAll(it)
-                binding.recyclerViewListas.adapter?.notifyDataSetChanged() // Atualiza o RecyclerView
+                binding.recyclerViewListas.adapter?.notifyDataSetChanged() // atualiza o recyclerview
             }
         }
     }
