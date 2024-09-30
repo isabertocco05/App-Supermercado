@@ -48,6 +48,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, criar_conta::class.java)
             startActivity(intent)
         }
+        binding.teste.setOnClickListener{
+            val intent = Intent(this, activity_teste::class.java)
+            startActivity(intent)
+        }
 
     }
 
