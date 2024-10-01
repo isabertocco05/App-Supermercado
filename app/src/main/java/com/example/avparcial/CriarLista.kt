@@ -114,6 +114,7 @@ class CriarLista : AppCompatActivity() {
     private fun showImage(image: Uri? = null) {
         Glide.with(this)
             .load(image)
+            .override(350, 330)
             .centerCrop()
             .placeholder(R.mipmap.placeholder_food_foreground)
             .into(binding.imagemLista)

@@ -33,8 +33,9 @@ class AdapterListas (
             binding.nameList.text = item.nome.uppercase()
             Glide.with(binding.root.context)
                 .load(item.imagemUrl)
+                .override(170,170)
                 .centerCrop()
-                .placeholder(R.mipmap.placeholder_food_foreground)
+                .placeholder(R.mipmap.placeholder_food)
                 .into(binding.imageList)
         }
 

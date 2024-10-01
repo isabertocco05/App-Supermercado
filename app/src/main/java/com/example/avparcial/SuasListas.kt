@@ -25,7 +25,7 @@ class SuasListas : AppCompatActivity() {
             nova_lista?.let {
                 suasListas.addAll(it)
                 listaFiltrada.addAll(it)
-                adapter.notifyDataSetChanged() // Atualiza o RecyclerView
+                adapter.notifyDataSetChanged()
             }
         }
     }

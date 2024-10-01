@@ -2,12 +2,14 @@ package com.example.avparcial
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.avparcial.databinding.ActivityItensListaBinding
 
@@ -48,7 +50,8 @@ class ItensLista : AppCompatActivity() {
 
         // PESQUISA
         adapter = AdapterItens(listaFiltrada, ::onItensClicked)
-        binding.recyclerViewItens.layoutManager = LinearLayoutManager(this)
+
+        binding.recyclerViewItens.layoutManager = GridLayoutManager(this, 1)
         binding.recyclerViewItens.adapter = adapter
 
         // Configura o listener de pesquisa

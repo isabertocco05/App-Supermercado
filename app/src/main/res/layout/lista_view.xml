@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/imageList"
             android:layout_width="170dp"
-            android:layout_height="167dp"
+            android:layout_height="170dp"
             android:maxWidth="170dp"
             android:src="@mipmap/placeholder_food" />
 
