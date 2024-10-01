@@ -34,6 +34,7 @@ class AdapterListas (
             Glide.with(binding.root.context)
                 .load(item.imagemUrl)
                 .centerCrop()
+                .placeholder(R.mipmap.placeholder_food_foreground)
                 .into(binding.imageList)
         }
 
