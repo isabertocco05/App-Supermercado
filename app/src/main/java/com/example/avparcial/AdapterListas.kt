@@ -34,7 +34,6 @@ class AdapterListas (
             Glide.with(binding.root.context)
                 .load(item.imagemUrl)
                 .centerCrop()
-                .placeholder(R.drawable.loader_test)
                 .into(binding.imageList)
         }
 

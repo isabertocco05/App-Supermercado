@@ -115,7 +115,6 @@ class CriarLista : AppCompatActivity() {
         Glide.with(this)
             .load(image)
             .centerCrop()
-            .placeholder(R.drawable.placeholder)
             .into(binding.imagemLista)
     }
 
