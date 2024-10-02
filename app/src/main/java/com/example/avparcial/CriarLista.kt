@@ -55,56 +55,49 @@ class CriarLista : AppCompatActivity() {
             val nome_lista = binding.nomeDaLista.text.toString()
             val imagem_lista = imgUri.toString()
 
-            nova_lista = listOf(Lista("$nome_lista", imagem_lista, null ))
+            if (nome_lista.isEmpty()) {
+                Snackbar.make(findViewById(android.R.id.content), "O campo nome deve ser preenchido.", Snackbar.LENGTH_LONG).show()
+            } else {
+                // ok, navegue para a próxima tela
+                val intent = Intent(this, SuasListas::class.java)
+                
+                nova_lista = listOf(Lista("$nome_lista", imagem_lista, null))
 
-            val intent = Intent().apply {
-                putParcelableArrayListExtra("nova_lista", ArrayList(nova_lista))
+                intent.putParcelableArrayListExtra("nova_lista", ArrayList(nova_lista))
+                setResult(RESULT_OK, intent)
+                startActivity(intent)
+                finish()
             }
-            setResult(RESULT_OK, intent)
-            finish()
-
         }
-
     }
 
-    private fun selectImage(){
-
-        // já está com acesso permitido?
-        when{
-            //sim
-            ContextCompat.checkSelfPermission(
-                this, READ_MEDIA_IMAGES
-            ) == PackageManager.PERMISSION_GRANTED -> {
+    private fun selectImage() {
+        when {
+            ContextCompat.checkSelfPermission(this, READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED -> {
                 getContent.launch("image/*")
             }
-            // não
             else -> {
                 requestPermissionLaucher.launch(READ_MEDIA_IMAGES)
             }
         }
-
     }
 
-    private fun onPermissionResult(isGranted: Boolean){
-        // está garantido? sim
-        if (isGranted){
+    private fun onPermissionResult(isGranted: Boolean) {
+        if (isGranted) {
             getContent.launch("image/*")
-        }
-        //não
-        else{
-            //mensagem explicando o porque é necessário o uso desse recurso
+        } else {
             showPermissionExplanation(requestAgain = false)
         }
     }
 
-    private fun showPermissionExplanation(requestAgain: Boolean){
+    private fun showPermissionExplanation(requestAgain: Boolean) {
         val snackbar = Snackbar.make(
             findViewById(android.R.id.content),
             "Precisamos de sua autorização para selecionar a imagem da galeria",
             Snackbar.LENGTH_LONG
         )
-        if (requestAgain){
-            snackbar.setAction("Permitir"){
+        if (requestAgain) {
+            snackbar.setAction("Permitir") {
                 requestPermissionLaucher.launch(READ_MEDIA_IMAGES)
             }
         }
@@ -118,5 +111,4 @@ class CriarLista : AppCompatActivity() {
             .placeholder(R.mipmap.placeholder_food_foreground)
             .into(binding.imagemLista)
     }
-
 }
