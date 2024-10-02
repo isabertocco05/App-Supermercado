@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     private fun verificaEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.length in 3..254
     }
-    
+
     // VERIFICA SENHA
     private fun VerificaSenha(password: String): Boolean {
         val hasLetter = password.any { it.isLetter() }

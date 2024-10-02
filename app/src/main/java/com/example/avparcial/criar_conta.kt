@@ -87,9 +87,8 @@ class criar_conta : AppCompatActivity() {
 //        val hasSpecialChar = password.any { !it.isLetterOrDigit() }
 //        return hasLetter && hasDigit && hasSpecialChar && (password.length >= 8)
 //    }
-//
-//    // SENHA E CONFIRMACAO SAO IGUAIS
-//    private fun isPasswordConfirmed(senha: String, senhaConfirmar: String): Boolean {
+//SENHA E CONFIRMACAO SAO IGUAIS
+//private fun isPasswordConfirmed(senha: String, senhaConfirmar: String): Boolean {
 //        return senha == senhaConfirmar
-//    }
-}
+//  }
+//}

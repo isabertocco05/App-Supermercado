@@ -11,6 +11,10 @@ import com.google.android.material.snackbar.Snackbar
 class activity_teste : AppCompatActivity() {
     private lateinit var binding: ActivityTesteBinding
 
+    // Email e senha fixos
+    private val emailLogin = "parcial@unaerp.com"
+    private val senhaLogin = "Aplicativo123@"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTesteBinding.inflate(layoutInflater)
@@ -28,15 +32,16 @@ class activity_teste : AppCompatActivity() {
             val email = binding.email.text.toString().trim()
             val senha = binding.senha.text.toString().trim()
 
-            // Verificações de email e senha
+            // Verificações de email e senha fixos
             if (email.isEmpty() || senha.isEmpty()) {
                 Snackbar.make(findViewById(android.R.id.content), "Todos os campos devem ser preenchidos.", Snackbar.LENGTH_LONG).show()
             } else if (!verificaEmail(email)) {
                 Snackbar.make(findViewById(android.R.id.content), "Email inválido.", Snackbar.LENGTH_LONG).show()
             } else if (!verificaSenha(senha)) {
                 Snackbar.make(findViewById(android.R.id.content), "A senha deve conter pelo menos uma letra, um número e um caractere especial.", Snackbar.LENGTH_LONG).show()
+            } else if (email != emailLogin || senha != senhaLogin) {
+                Snackbar.make(findViewById(android.R.id.content), "Email ou senha incorretos.", Snackbar.LENGTH_LONG).show()
             } else {
-                // ok, navegue para a próxima tela
                 val intent = Intent(this, SuasListas::class.java)
                 startActivity(intent)
             }
