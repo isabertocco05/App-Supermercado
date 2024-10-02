@@ -14,6 +14,8 @@ class criar_conta : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_criar_conta)
+    }
+}
 
         // ROOTLAYOUT
 //        val rootLayout = findViewById<ConstraintLayout>(R.id.rootLayout)
@@ -58,7 +60,7 @@ class criar_conta : AppCompatActivity() {
 //                startActivity(intent)
 //            }
 //        }
-    }
+//    }
 //
 //    // VERIFICA NOME
 //    private fun isValidName(name: String): Boolean {
