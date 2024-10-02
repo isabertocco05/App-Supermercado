@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
             // Verificações de email e senha
             if (email.isEmpty() || senha.isEmpty()) {
                 Snackbar.make(findViewById(android.R.id.content), "Todos os campos devem ser preenchidos.", Snackbar.LENGTH_LONG).show()
-            } else if (!isValidEmail(email)) {
+            } else if (!verificaEmail(email)) {
                 Snackbar.make(findViewById(android.R.id.content), "Email inválido.", Snackbar.LENGTH_LONG).show()
-            } else if (!isValidPassword(senha)) {
+            } else if (!VerificaSenha(senha)) {
                 Snackbar.make(findViewById(android.R.id.content), "A senha deve conter pelo menos uma letra, um número e um caractere especial.", Snackbar.LENGTH_LONG).show()
             } else {
                 // ok, navegue para a próxima tela
@@ -56,24 +56,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     // VERIFICA EMAIL
-    private fun isValidEmail(email: String): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
-                isEmailLengthValid(email) &&
-                !isTemporaryEmail(email)
+    private fun verificaEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.length in 3..254
     }
-
-    private fun isEmailLengthValid(email: String): Boolean {
-        return email.length in 3..254
-    }
-
-    private fun isTemporaryEmail(email: String): Boolean {
-        val temporaryDomains = listOf("tempmail.com", "mailinator.com")
-        val domain = email.substringAfter("@")
-        return domain in temporaryDomains
-    }
-
+    
     // VERIFICA SENHA
-    private fun isValidPassword(password: String): Boolean {
+    private fun VerificaSenha(password: String): Boolean {
         val hasLetter = password.any { it.isLetter() }
         val hasDigit = password.any { it.isDigit() }
         val hasSpecialChar = password.any { !it.isLetterOrDigit() }

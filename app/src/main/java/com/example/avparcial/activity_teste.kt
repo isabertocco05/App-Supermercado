@@ -54,6 +54,11 @@ class activity_teste : AppCompatActivity() {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.length in 3..254
     }
 
+    private fun verificaTamanhoEmail(email: String): Boolean {
+        return email.length in 3..254
+    }
+
+
     // Verifica se a senha é válida
     private fun verificaSenha(password: String): Boolean {
         val hasLetter = password.any { it.isLetter() }
