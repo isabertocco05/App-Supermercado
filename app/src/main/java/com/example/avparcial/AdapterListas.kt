@@ -5,7 +5,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.avparcial.databinding.ListaViewBinding
@@ -31,6 +30,7 @@ class AdapterListas (
                     } else {
                         onClick(it)
                         val intent = Intent(binding.root.context, ItensLista::class.java)
+                        intent.putExtra("lista", it)
                         binding.root.context.startActivity(intent)
                     }
                 }

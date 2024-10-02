@@ -54,9 +54,8 @@ class CriarLista : AppCompatActivity() {
 
             val nome_lista = binding.nomeDaLista.text.toString()
             val imagem_lista = imgUri.toString()
-            val id= 1
 
-            nova_lista = listOf(Lista( id.toString(), "$nome_lista", imagem_lista, null ))
+            nova_lista = listOf(Lista("$nome_lista", imagem_lista, null ))
 
             val intent = Intent().apply {
                 putParcelableArrayListExtra("nova_lista", ArrayList(nova_lista))

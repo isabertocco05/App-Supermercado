@@ -8,8 +8,9 @@ import com.example.avparcial.databinding.ActivityItensListaBinding
 import com.example.avparcial.databinding.ItensViewBinding
 
 class AdapterItens(
-    private var descItens: List<Itens>,
-    private val onClick: (Itens) -> Unit
+    private var descItens: MutableList<Itens> = mutableListOf(),
+    private val onClick: (Itens) -> Unit,
+    private val onDeleteClicked: (Itens) -> Unit
 ): RecyclerView.Adapter<AdapterItens.ViewHolder>()  {
 
     inner class ViewHolder(
@@ -23,6 +24,12 @@ class AdapterItens(
                     onClick(it)
                 }
             }
+
+            binding.deleteItem.setOnClickListener {
+                currentItem?.let { item ->
+                    onDeleteClicked(item)
+                }
+            }
         }
 
         fun bind(item: Itens){
@@ -31,6 +38,7 @@ class AdapterItens(
             binding.quantidade.text= item.quantidade
             binding.un.text = item.unidade
 //            falta a categoria
+
         }
 
     }
@@ -46,5 +54,6 @@ class AdapterItens(
     }
 
     override fun getItemCount(): Int = descItens.size
+
 
 }

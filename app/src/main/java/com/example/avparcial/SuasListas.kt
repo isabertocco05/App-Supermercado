@@ -17,7 +17,18 @@ class SuasListas : AppCompatActivity() {
     private lateinit var binding: ActivitySuasListasBinding
     private var suasListas: MutableList<Lista> = mutableListOf()
     private var listaFiltrada: MutableList<Lista> = mutableListOf()
+    private lateinit var listaPertencente: Lista
     private lateinit var adapter: AdapterListas
+
+    private val addItemLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            // Atualiza os itens da lista quando voltar da tela de adicionar itens
+            listaPertencente.itens_da_lista?.let { itensRetornados ->
+                listaPertencente.itens_da_lista = itensRetornados
+                adapter.notifyDataSetChanged() // Notifica mudanças no adapter
+            }
+        }
+    }
 
     private val createListLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
@@ -42,7 +53,6 @@ class SuasListas : AppCompatActivity() {
             insets
         }
 
-
         // PESQUISA
         binding.pesquisa.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -59,6 +69,10 @@ class SuasListas : AppCompatActivity() {
         nova_lista?.let {
             suasListas.addAll(it)
             listaFiltrada.addAll(it)
+        }
+
+        val itens_lista = intent.getParcelableArrayListExtra<Lista>("itens-lista")
+        itens_lista?.let {
         }
 
         adapter = AdapterListas(listaFiltrada, ::onListClicked)
@@ -92,11 +106,14 @@ class SuasListas : AppCompatActivity() {
                 }
             }
         }
-        adapter.notifyDataSetChanged() // Atualiza o RecyclerView
+        adapter.notifyDataSetChanged()
     }
 
     private fun onListClicked(lista: Lista) {
-        Toast.makeText(this, lista.toString(), Toast.LENGTH_LONG).show()
-
+        listaPertencente = lista
+        val intent = Intent(this, AddItens::class.java).apply {
+            putExtra("lista", listaPertencente)
+        }
+        addItemLauncher.launch(intent)
     }
 }
