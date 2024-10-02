@@ -70,6 +70,12 @@ class ItensLista : AppCompatActivity() {
             val intent = Intent(this, AddItens::class.java)
             addItemLauncher.launch(intent)
         }
+
+        binding.logout2.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun filterList(searchText: String) {

@@ -69,6 +69,16 @@ class SuasListas : AppCompatActivity() {
             val intent = Intent(this, CriarLista::class.java)
             createListLauncher.launch(intent)
         }
+
+        binding.logout.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.FABDelete.setOnClickListener{
+            adapter.checkDeleteMode()
+        }
     }
 
     private fun filterList(searchText: String) {
