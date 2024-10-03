@@ -54,7 +54,7 @@ class AddItens : AppCompatActivity() {
 
             if (nome_item.isNullOrBlank() || quantidade.isNullOrBlank() || und.isNullOrBlank() || cat.isNullOrBlank()) {
                 Snackbar.make(findViewById(android.R.id.content), "Todos os campos devem ser preenchidos.", Snackbar.LENGTH_LONG).show()
-            } else if (!isValidName(nome_item.trim())) {
+            } else if (!verificaNome(nome_item.trim())) {
                 Snackbar.make(findViewById(android.R.id.content), "O nome deve conter letras diferentes e não pode ser apenas números.", Snackbar.LENGTH_LONG).show()
             } else {
                 Snackbar.make(findViewById(android.R.id.content), "Item adicionado", Snackbar.LENGTH_SHORT).show()
@@ -70,12 +70,11 @@ class AddItens : AppCompatActivity() {
     }
 
     // VERIFICA NOME
-    private fun isValidName(name: String): Boolean {
+    private fun verificaNome(name: String): Boolean {
         val hasLetters = name.any { it.isLetter() }
-        val hasUniqueCharacters = name.toSet().size > 1 // Verifica caractere diferente
-        val hasOnlyLetters = name.all { it.isLetter() } // Verifica se contém apenas letras
-
-        return hasLetters && hasUniqueCharacters && hasOnlyLetters
+        val hasUniqueCharacters = name.toSet().size > 1
+        val hasOnlyLettersAndSpaces = name.all { it.isLetter() || it.isWhitespace() }
+        return hasLetters && hasUniqueCharacters && hasOnlyLettersAndSpaces && name.isNotBlank()
     }
 
 }
