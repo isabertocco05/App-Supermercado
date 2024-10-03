@@ -38,10 +38,10 @@ class MainActivity : AppCompatActivity() {
                 Snackbar.make(findViewById(android.R.id.content), "Todos os campos devem ser preenchidos.", Snackbar.LENGTH_LONG).show()
             } else if (!verificaEmail(email)) {
                 Snackbar.make(findViewById(android.R.id.content), "Email inválido.", Snackbar.LENGTH_LONG).show()
-            } else if (!verificaSenha(senha)) {
-                Snackbar.make(findViewById(android.R.id.content), "A senha deve conter pelo menos uma letra, um número e um caractere especial.", Snackbar.LENGTH_LONG).show()
-            } else if (email != emailLogin || senha != senhaLogin) {
-                Snackbar.make(findViewById(android.R.id.content), "Email ou senha incorretos.", Snackbar.LENGTH_LONG).show()
+            } else if (email != emailLogin) {
+                Snackbar.make(findViewById(android.R.id.content), "Email não cadastrado.", Snackbar.LENGTH_LONG).show()
+            } else if (senha != senhaLogin) {
+                Snackbar.make(findViewById(android.R.id.content), "Senha incorreta.", Snackbar.LENGTH_LONG).show()
             } else {
                 val intent = Intent(this, SuasListas::class.java)
                 startActivity(intent)
@@ -65,11 +65,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    // Verifica se a senha é válida
-    private fun verificaSenha(password: String): Boolean {
-        val hasLetter = password.any { it.isLetter() }
-        val hasDigit = password.any { it.isDigit() }
-        val hasSpecialChar = password.any { !it.isLetterOrDigit() }
-        return hasLetter && hasDigit && hasSpecialChar && (password.length >= 8)
     }
-}
+
