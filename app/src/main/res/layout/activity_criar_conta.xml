@@ -256,12 +256,14 @@
         android:layout_marginEnd="47dp"
         android:layout_marginTop="30dp"
         android:hint="Senha"
+        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CrieSuaContaEmail">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/senha"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -275,12 +277,14 @@
         android:layout_marginEnd="47dp"
         android:layout_marginTop="30dp"
         android:hint="Confirme Sua Senha"
+        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/senha_usuario">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/confirmacao_senha"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>

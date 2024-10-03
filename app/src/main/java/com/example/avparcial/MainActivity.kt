@@ -65,5 +65,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    // Verifica se a senha é válida
+    private fun verificaSenha(password: String): Boolean {
+        val hasLetter = password.any { it.isLetter() }
+        val hasDigit = password.any { it.isDigit() }
+        val hasSpecialChar = password.any { !it.isLetterOrDigit() }
+        return hasLetter && hasDigit && hasSpecialChar && (password.length >= 8)
     }
-
+}
