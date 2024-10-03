@@ -111,7 +111,7 @@ class ItensLista : AppCompatActivity() {
                 }
             }
         }
-        adapter.notifyDataSetChanged() // Atualiza o RecyclerView
+        adapter.notifyDataSetChanged()
     }
 
     private fun onClick(item: Itens) {

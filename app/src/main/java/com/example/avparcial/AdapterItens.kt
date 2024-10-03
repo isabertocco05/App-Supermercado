@@ -1,5 +1,6 @@
 package com.example.avparcial
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -37,10 +38,17 @@ class AdapterItens(
             binding.nameItem.text = item.nome_item.uppercase()
             binding.quantidade.text= item.quantidade
             binding.un.text = item.unidade
-//            falta a categoria
 
+            val iconeCategoria = when (item.categoria) {
+                "Fruta" -> R.mipmap.ic_fruta
+                "Legumes e Vegetais" -> R.mipmap.ic_legumes
+                "Comida" -> R.mipmap.ic_comida
+                "Carne" -> R.mipmap.ic_carne
+                "Bebida" -> R.mipmap.ic_bebida
+                else -> R.mipmap.ic_comida
+            }
+            binding.image.setImageResource(iconeCategoria)
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -2,6 +2,7 @@ package com.example.avparcial
 
 import Lista
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,6 @@ class AdapterListas (
                 }
             }
 
-            // para deletar listas
             itemView.setOnLongClickListener {
                 if (!isDeleteMode) {
                     isDeleteMode = true
@@ -119,9 +119,9 @@ class AdapterListas (
             if (listasSelecionadas.isNotEmpty()) {
                 deleteListasSelecionadas()
             } else {
+                Log.d("SuasListas", "A Lista : ${listasSelecionadas}")
                 cancelDeleteMode()
             }
         }
     }
-
 }

@@ -2,6 +2,7 @@ package com.example.avparcial
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -35,7 +36,9 @@ class AddItens : AppCompatActivity() {
         val tipoCat = listOf(
             Categoria(R.mipmap.ic_fruta, "Fruta"),
             Categoria(R.mipmap.ic_legumes, "Legumes e Vegetais"),
-            Categoria(R.mipmap.ic_comida, "Comida")
+            Categoria(R.mipmap.ic_carne, "Carne"),
+            Categoria(R.mipmap.ic_comida, "Comida"),
+            Categoria(R.mipmap.ic_bebida, "Bebida")
         )
         val adapterCat = CategoriaAdapter(this, tipoCat)
         binding.tipoCat.setAdapter(adapterCat)
@@ -45,7 +48,7 @@ class AddItens : AppCompatActivity() {
             val nome_item = binding.nomeDoItem.text.toString()
             val quantidade = binding.quantidade.text.toString()
             val und = binding.tipoUnid.text.toString()
-            val cat = binding.tipoCat.toString()
+            val cat = binding.tipoCat.text.toString()
 
             novo_item = listOf(Itens(0, "$nome_item", "$quantidade", "$und", "$cat"))
 
