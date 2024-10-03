@@ -14,6 +14,7 @@ class criar_conta : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_criar_conta)
+
     }
 }
 
@@ -59,8 +60,7 @@ class criar_conta : AppCompatActivity() {
 //                val intent = Intent(this, SuasListas::class.java)
 //                startActivity(intent)
 //            }
-//        }
-//    }
+//        } }
 //
 //    // VERIFICA NOME
 //    private fun isValidName(name: String): Boolean {
