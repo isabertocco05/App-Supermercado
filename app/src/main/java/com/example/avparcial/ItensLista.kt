@@ -28,10 +28,12 @@ class ItensLista : AppCompatActivity() {
             val data = result.data
             data?.getParcelableArrayListExtra<Itens>("novo_item")?.let {
                 itensLista.addAll(it)
+                listaPertencente.itens_da_lista = ArrayList(itensLista)
                 filterList("")
             }
         }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,12 +92,12 @@ class ItensLista : AppCompatActivity() {
 
         binding.salvar.setOnClickListener{
 
-//            listaPertencente.itens_da_lista = ArrayList(itensLista)
-//            val intent =  Intent(this, SuasListas::class.java).apply{
-//                putParcelableArrayListExtra("itens_lista", java.util.ArrayList(itensLista))
-//            }
-//            setResult(RESULT_OK, intent)
-//            startActivity(intent)
+            listaPertencente.itens_da_lista = ArrayList(itensLista)
+            val intent =  Intent(this, SuasListas::class.java).apply{
+                putParcelableArrayListExtra("itens_lista", java.util.ArrayList(itensLista))
+            }
+            setResult(RESULT_OK, intent)
+            startActivity(intent)
         }
 
     }
@@ -111,6 +113,7 @@ class ItensLista : AppCompatActivity() {
                 }
             }
         }
+        ordenaItens()
         adapter.notifyDataSetChanged()
     }
 
@@ -121,6 +124,12 @@ class ItensLista : AppCompatActivity() {
     private fun onDeleteClicked(item: Itens) {
         itensLista.remove(item)
         filterList("")
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun ordenaItens(){
+        listaFiltrada.sortWith(compareBy( {it.checked }))
+        listaFiltrada.sortWith(compareBy ({ it.categoria } , {it.nome_item}) )
         adapter.notifyDataSetChanged()
     }
 

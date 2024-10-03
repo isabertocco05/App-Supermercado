@@ -3,6 +3,7 @@ package com.example.avparcial
 import Lista
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,16 +21,20 @@ class SuasListas : AppCompatActivity() {
     private lateinit var listaPertencente: Lista
     private lateinit var adapter: AdapterListas
 
+    // adicionar Item
     private val addItemLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
-            // Atualiza os itens da lista quando voltar da tela de adicionar itens
-            listaPertencente.itens_da_lista?.let { itensRetornados ->
-                listaPertencente.itens_da_lista = itensRetornados
+
+            val itens_lista = intent.getParcelableArrayListExtra<Itens>("itens_lista")
+            itens_lista?.let {
+                listaPertencente.itens_da_lista = itens_lista
                 adapter.notifyDataSetChanged() // Notifica mudanças no adapter
+                Log.d("SuasListas", "para a lista ${listaPertencente} os itens sao ${listaPertencente.itens_da_lista}")
             }
         }
     }
 
+    // adicionar lista
     private val createListLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val nova_lista = result.data?.getParcelableArrayListExtra<Lista>("nova_lista")
@@ -64,16 +69,6 @@ class SuasListas : AppCompatActivity() {
                 return true
             }
         })
-
-        val nova_lista = intent.getParcelableArrayListExtra<Lista>("nova_lista")
-        nova_lista?.let {
-            suasListas.addAll(it)
-            listaFiltrada.addAll(it)
-        }
-
-        val itens_lista = intent.getParcelableArrayListExtra<Lista>("itens-lista")
-        itens_lista?.let {
-        }
 
         adapter = AdapterListas(listaFiltrada, ::onListClicked)
         binding.recyclerViewListas.adapter = adapter
@@ -111,7 +106,7 @@ class SuasListas : AppCompatActivity() {
 
     private fun onListClicked(lista: Lista) {
         listaPertencente = lista
-        val intent = Intent(this, AddItens::class.java).apply {
+        val intent = Intent(this, ItensLista::class.java).apply {
             putExtra("lista", listaPertencente)
         }
         addItemLauncher.launch(intent)

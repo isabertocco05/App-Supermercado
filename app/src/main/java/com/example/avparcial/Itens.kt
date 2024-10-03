@@ -8,7 +8,8 @@ data class Itens(
     val nome_item: String,
     val quantidade: String,
     val unidade: String,
-    val categoria: String
+    val categoria: String,
+    var checked: Boolean = false
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readValue(Int::class.java.classLoader) as? Int,

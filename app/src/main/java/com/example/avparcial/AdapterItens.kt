@@ -1,11 +1,10 @@
 package com.example.avparcial
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.avparcial.databinding.ActivityItensListaBinding
 import com.example.avparcial.databinding.ItensViewBinding
 
 class AdapterItens(
@@ -26,6 +25,19 @@ class AdapterItens(
                 }
             }
 
+            binding.itemCheck.setOnClickListener{
+                currentItem?.let { item ->
+                    if (binding.itemCheck.isChecked) {
+                        item.checked = true
+                        notifyDataSetChanged()
+                    }
+                    else{
+                        item.checked = false
+                        notifyDataSetChanged()
+                    }
+                }
+            }
+
             binding.deleteItem.setOnClickListener {
                 currentItem?.let { item ->
                     onDeleteClicked(item)
@@ -38,6 +50,14 @@ class AdapterItens(
             binding.nameItem.text = item.nome_item.uppercase()
             binding.quantidade.text= item.quantidade
             binding.un.text = item.unidade
+
+            if (item.checked) {
+                binding.root.setBackgroundColor(ContextCompat.getColor(binding.root.context, R.color.md_theme_surfaceContainerHighest_mediumContrast))
+            }
+            else{
+                binding.root.setBackgroundColor(ContextCompat.getColor(binding.root.context, R.color.md_theme_background))
+            }
+
 
             val iconeCategoria = when (item.categoria) {
                 "Fruta" -> R.mipmap.ic_fruta
