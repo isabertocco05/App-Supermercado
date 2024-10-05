@@ -47,7 +47,8 @@ class criar_conta : AppCompatActivity() {
             } else if (!verificaConfirmacao(senha, senhaConfirmar)) {
                 Snackbar.make(findViewById(android.R.id.content), "As senhas não são iguais.", Snackbar.LENGTH_LONG).show()
             } else {
-                val intent = Intent(this, SuasListas::class.java)
+                Snackbar.make(findViewById(android.R.id.content), "Usuário criado com sucesso", Snackbar.LENGTH_LONG).show()
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
         }
