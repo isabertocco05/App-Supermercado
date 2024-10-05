@@ -56,9 +56,8 @@ class criar_conta : AppCompatActivity() {
     private fun verificaNome(name: String): Boolean {
         val hasLetters = name.any { it.isLetter() }
         val hasUniqueCharacters = name.toSet().size > 1
-        val hasOnlyLetters = name.all { it.isLetter() }
-        val hasNoDigits = name.none { it.isDigit() }
-        return hasLetters && hasUniqueCharacters && hasOnlyLetters
+        val hasOnlyLettersAndSpaces = name.all { it.isLetter() || it.isWhitespace() }
+        return hasLetters && hasUniqueCharacters && hasOnlyLettersAndSpaces && name.isNotBlank()
     }
 
     private fun verificaEmail(email: String): Boolean {
